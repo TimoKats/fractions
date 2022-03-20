@@ -9,7 +9,7 @@ import (
 
 func package_info() {
 	fmt.Println("package-name:	fractions")
-	fmt.Println("version:		0.0.1")
+	fmt.Println("version:		v1.0.0")
 	fmt.Println("made by:		Timo Kats")
 	fmt.Println("last update:	17/03/2022")
 }
