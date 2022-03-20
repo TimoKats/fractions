@@ -1,3 +1,7 @@
+// fractions.go
+// written by Timo Kats
+// last updated: 20/03/2022
+
 package fractions
 
 import (
