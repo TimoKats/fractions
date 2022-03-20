@@ -23,5 +23,33 @@ func main() {
 }
 ```
 ### Functionalities
-
-### Contact and donate
+This library saves fractions as objects/structs (called *frac*) and has functions for: printing, setting, getting, formatting and computing. Hereby a short overview of them all.  
+#### print functions
+ - PrintFrac(frac *frac)
+ - PrintNumerator(frac *frac)
+ - PrintDenominator(frac *frac)
+ - PrintInteger(frac \*frac)
+#### set functions
+ - MakeFrac(integer int, numerator int, denominator int)
+ - SetNumerator(frac \*frac, value int)
+ - SetDenominator(frac \*frac, value int)
+ - SetInteger(frac \*frac, value int)
+#### get functions
+ - GetNumerator(frac \*frac)
+ - GetDenominator(frac \*frac)
+ - GetInteger(frac \*frac)
+#### conversion functions
+ - FloatToFrac(value float64)
+ - FracToFloat(frac \*frac)
+#### formatting functions
+ - FormatFracOnly(frac \*frac)
+ - FormatSimplify(frac \*frac)
+#### operations
+ - SumFrac(frac1 \*frac, frac2 \*frac)
+ - SumInt(frac1 \*frac, frac2 \*frac)
+ - SubtractFrac(frac1 \*frac, frac2 \*frac)
+ - SubtractInt(frac1 \*frac, frac2 \*frac)
+ - SubtractInt(frac1 \*frac, value int)
+ - DivideFrac(frac1 \*frac, frac2 \*frac)
+ - DivideInt(frac1 \*frac, value int)
+ - PowerFrac(frac1 \*frac, value int)
