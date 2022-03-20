@@ -1,6 +1,8 @@
 ![fractions logo](https://github.com/TimoKats/fractions/blob/cafbfa70d4054a1df8eb4c10d2fc4d6511dd3f19/logo.png)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=V2YDND4NLLPRL)
+![Status](https://img.shields.io/static/v1.svg?label=testing&message=passed&color=blue)
+![Status](https://img.shields.io/static/v1.svg?label=version&message=v1.0.1&color=blue)
 
 ---
 ### Getting started
