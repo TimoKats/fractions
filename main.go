@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 // non-fraction functions //
@@ -35,6 +36,7 @@ func PrintFrac(frac *frac) {
 			print(frac.integer)
 		}
 	}
+	print("\n")
 }
 
 func PrintNumerator(frac *frac) {
@@ -95,8 +97,11 @@ func FloatToFrac(value float64) *frac {
 			}
 		}
 	}
-
-	print("\nERROR: no viable fractions found...\n")
+	if value >= 0 {
+		print("\nERROR: no viable fractions found\n")
+	} else {
+		print("\nERROR: no non-positive values allowed\n")
+	}
 	return &frac{0, 0, 0}
 }
 
@@ -112,13 +117,40 @@ func FormatFracOnly(frac *frac) {
 }
 
 func FormatSimplify(frac *frac) {
-	if frac.numerator > frac.denominator {
+	if frac.numerator >= frac.denominator {
 		frac.integer += frac.numerator / frac.denominator
 		frac.numerator %= frac.denominator
+	} else if frac.numerator < 0 && math.Abs(float64(frac.numerator)) >= float64(frac.denominator) {
+		frac.integer += frac.numerator / frac.denominator
+		frac.numerator %= frac.denominator
+	} else {
+		print("ERROR: frac already simplified\n")
+	}
+}
+
+// boolean checks
+
+func EqualDenominators(frac1 *frac, frac2 *frac) bool {
+	if frac1.denominator == frac2.denominator {
+		return true
+	} else {
+		return false
 	}
 }
 
 // operations
+
+func EqualizeDenominators(frac1 *frac, frac2 *frac) {
+	if !EqualDenominators(frac1, frac2) {
+		FormatFracOnly(frac1)
+		FormatFracOnly(frac2)
+
+		CommonDenominator := frac1.denominator * frac2.denominator
+		frac1.numerator *= frac2.denominator
+		frac2.numerator *= frac1.denominator
+		frac1.denominator, frac2.denominator = CommonDenominator, CommonDenominator
+	}
+}
 
 func MultiplyFrac(frac1 *frac, frac2 *frac) *frac {
 	FormatFracOnly(frac1)
@@ -126,25 +158,73 @@ func MultiplyFrac(frac1 *frac, frac2 *frac) *frac {
 
 	numerator := frac1.numerator * frac2.numerator
 	denominator := frac1.denominator * frac2.denominator
-
 	return &frac{0, numerator, denominator}
 }
 
-func MultiplyNum(frac1 *frac, value int) *frac {
+func MultiplyInt(frac1 *frac, value int) *frac {
 	FormatFracOnly(frac1)
 
 	numerator := frac1.numerator * value
-
 	return &frac{0, numerator, frac1.denominator}
+}
+
+func SumFrac(frac1 *frac, frac2 *frac) *frac {
+	FormatFracOnly(frac1)
+	FormatFracOnly(frac2)
+	EqualizeDenominators(frac1, frac2)
+
+	numerator := frac1.numerator + frac2.numerator
+	return &frac{0, numerator, frac1.denominator}
+}
+
+func SumInt(frac1 *frac, value int) *frac {
+	integer := frac1.integer + value
+	return &frac{integer, frac1.numerator, frac1.denominator}
+}
+
+func SubtractFrac(frac1 *frac, frac2 *frac) *frac {
+	FormatFracOnly(frac1)
+	FormatFracOnly(frac2)
+	EqualizeDenominators(frac1, frac2)
+
+	numerator := frac1.numerator - frac2.numerator
+	return &frac{0, numerator, frac1.denominator}
+}
+
+func SubtractInt(frac1 *frac, value int) *frac {
+	FormatFracOnly(frac1)
+	value *= frac1.denominator
+
+	numerator := frac1.numerator - value
+	return &frac{0, numerator, frac1.denominator}
+}
+
+func DivideFrac(frac1 *frac, frac2 *frac) *frac {
+	FormatFracOnly(frac1)
+	FormatFracOnly(frac2)
+
+	numerator := frac1.numerator * frac2.denominator
+	denominator := frac1.denominator * frac2.numerator
+	return &frac{0, numerator, denominator}
+}
+
+func DivideInt(frac1 *frac, value int) *frac {
+	FormatFracOnly(frac1)
+	denominator := frac1.denominator * value
+	return &frac{0, frac1.numerator, denominator}
+}
+
+func PowerFrac(frac1 *frac, value int) *frac {
+	FloatValue := math.Pow(FracToFloat(frac1), float64(value))
+	return FloatToFrac(FloatValue)
 }
 
 func main() {
 	//package_info()
 
-	y1 := FloatToFrac(2.5)
-	//y2 := MakeFrac(0, 1, 2)
-
-	y3 := MultiplyNum(y1, 2)
+	y1 := FloatToFrac(1.5)
+	y2 := FloatToFrac(0.25)
+	y3 := SumFrac(y1, y2)
 	FormatSimplify(y3)
 	PrintFrac(y3)
 }
